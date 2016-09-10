@@ -5,6 +5,7 @@ import com.gmail.at.ivanehreshi.jee.lab1.domain.Company;
 import com.gmail.at.ivanehreshi.jee.lab1.persistence.PersistenceUtils;
 import com.gmail.at.ivanehreshi.jee.lab1.persistence.dao.CompanyDao;
 import org.h2.jdbcx.JdbcDataSource;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,11 @@ public class CompanyDaoTest {
         persistenceUtils.executeResourceFile("vacancy.sql");
         companyDao = new CompanyDao(persistenceUtils);
         exampleCompany = new Company("Example");
+    }
 
+    @After
+    public void tearDown() {
+        persistenceUtils.close();
     }
 
     @Test

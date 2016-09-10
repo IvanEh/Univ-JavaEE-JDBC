@@ -19,7 +19,7 @@ public class VacancyDao implements Dao<Vacancy, Long> {
             "DELETE FROM `vacancy` WHERE id=?";
 
     public static final String SELECT_VACANCY_BY_SALARY =
-            "SELECT id, position, estimated_salary, company_id, requirements FROM `vacancy` WHERE estimated_salary %b";
+            "SELECT id, position, estimated_salary, company_id, requirements FROM `vacancy` WHERE estimated_salary %s";
 
 
     private PersistenceUtils persistenceUtils;
@@ -52,7 +52,7 @@ public class VacancyDao implements Dao<Vacancy, Long> {
             if(rs.next()) {
                 vacancy.setId(id);
                 vacancy.setPosition(rs.getString("position"));
-                vacancy.setEstimatedSalary(rs.getDouble("estimate_salary"));
+                vacancy.setEstimatedSalary(rs.getDouble("estimated_salary"));
                 vacancy.setCompany(companyDao.read(rs.getLong("company_id")));
                 vacancy.setRequirements(rs.getString("requirements"));
 
@@ -72,7 +72,6 @@ public class VacancyDao implements Dao<Vacancy, Long> {
                 vacancy.getEstimatedSalary(),
                 vacancy.getCompany().getId(),
                 vacancy.getRequirements(),
-                vacancy.getEstimatedSalary(),
                 vacancy.getId());
     }
 

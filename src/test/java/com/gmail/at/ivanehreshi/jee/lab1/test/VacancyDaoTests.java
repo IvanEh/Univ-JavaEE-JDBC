@@ -6,6 +6,7 @@ import com.gmail.at.ivanehreshi.jee.lab1.persistence.PersistenceUtils;
 import com.gmail.at.ivanehreshi.jee.lab1.persistence.dao.CompanyDao;
 import com.gmail.at.ivanehreshi.jee.lab1.persistence.dao.VacancyDao;
 import org.h2.jdbcx.JdbcDataSource;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,8 +33,13 @@ public class VacancyDaoTests {
         vacancyDao = new VacancyDao(persistenceUtils);
         companyDao = new CompanyDao(persistenceUtils);
         vacancyCompany = new Company("Example");
-        exampleVacancy = new Vacancy(vacancyCompany, 1000, "Developer", "No requirements");
+        exampleVacancy = new Vacancy("Developer", 1000, vacancyCompany, "No requirements");
 
+    }
+
+    @After
+    public void tearDown() {
+        persistenceUtils.close();
     }
 
     @Test
@@ -93,9 +99,9 @@ public class VacancyDaoTests {
     public void testFindVacanciesWithSalary() {
         companyDao.create(vacancyCompany);
 
-        Vacancy vacancy1 = new Vacancy(vacancyCompany, 300, "Administrator", "");
-        Vacancy vacancy2 = new Vacancy(vacancyCompany, 1000, "Developer", "");
-        Vacancy vacancy3 = new Vacancy(vacancyCompany, 1100, "Manager", "");
+        Vacancy vacancy1 = new Vacancy("Administrator", 300, vacancyCompany, "");
+        Vacancy vacancy2 = new Vacancy("Developer", 1000, vacancyCompany, "");
+        Vacancy vacancy3 = new Vacancy("Manager", 1100, vacancyCompany, "");
 
         vacancyDao.create(vacancy1);
         vacancyDao.create(vacancy2);

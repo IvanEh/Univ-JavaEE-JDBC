@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 public class PersistenceUtils {
     private DataSource ds;
+    private Connection connection;
 
     public PersistenceUtils(String url, String db, String user, String password) {
         MysqlDataSource mysqlDs = new MysqlDataSource();
@@ -31,8 +32,12 @@ public class PersistenceUtils {
     }
 
     public Connection getConnection() {
+        if(connection != null)
+            return connection;
+
         try {
-            return ds.getConnection();
+            this.connection = ds.getConnection();
+            return connection;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -145,5 +150,14 @@ public class PersistenceUtils {
         }
 
         return false;
+    }
+
+    public void close() {
+        try {
+            this.connection.close();
+            this.connection = null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
