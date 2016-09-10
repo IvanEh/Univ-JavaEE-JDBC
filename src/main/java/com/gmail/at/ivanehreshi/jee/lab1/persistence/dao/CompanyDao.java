@@ -1,7 +1,6 @@
-package com.gmail.at.ivanehreshi.jee.lab1.dao;
+package com.gmail.at.ivanehreshi.jee.lab1.persistence.dao;
 
-import com.gmail.at.ivanehreshi.jee.lab1.Dao;
-import com.gmail.at.ivanehreshi.jee.lab1.PersistenceUtils;
+import com.gmail.at.ivanehreshi.jee.lab1.persistence.PersistenceUtils;
 import com.gmail.at.ivanehreshi.jee.lab1.domain.Company;
 
 import java.sql.ResultSet;

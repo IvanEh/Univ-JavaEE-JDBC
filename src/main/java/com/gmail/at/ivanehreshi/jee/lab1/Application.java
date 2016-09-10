@@ -1,6 +1,7 @@
 package com.gmail.at.ivanehreshi.jee.lab1;
 
-import com.gmail.at.ivanehreshi.jee.lab1.dao.CompanyDao;
+import com.gmail.at.ivanehreshi.jee.lab1.persistence.PersistenceUtils;
+import com.gmail.at.ivanehreshi.jee.lab1.persistence.dao.CompanyDao;
 import com.gmail.at.ivanehreshi.jee.lab1.domain.Company;
 
 public class Application {

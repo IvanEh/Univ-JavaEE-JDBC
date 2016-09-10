@@ -1,13 +1,12 @@
-package com.gmail.at.ivanehreshi.jee.lab1.dao;
+package com.gmail.at.ivanehreshi.jee.lab1.persistence.dao;
 
-import com.gmail.at.ivanehreshi.jee.lab1.Dao;
-import com.gmail.at.ivanehreshi.jee.lab1.PersistenceUtils;
+import com.gmail.at.ivanehreshi.jee.lab1.persistence.PersistenceUtils;
 import com.gmail.at.ivanehreshi.jee.lab1.domain.Vacancy;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static com.gmail.at.ivanehreshi.jee.lab1.dao.CompanyDao.SELECT_COMPANY;
+import static com.gmail.at.ivanehreshi.jee.lab1.persistence.dao.CompanyDao.SELECT_COMPANY;
 
 public class VacancyDao implements Dao<Vacancy, Long> {
     public static final String SELECT_VACANCY =

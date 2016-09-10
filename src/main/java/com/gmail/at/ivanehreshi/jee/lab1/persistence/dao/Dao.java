@@ -1,4 +1,4 @@
-package com.gmail.at.ivanehreshi.jee.lab1;
+package com.gmail.at.ivanehreshi.jee.lab1.persistence.dao;
 
 public interface Dao<T, PK> {
     PK create(T t);

@@ -1,4 +1,4 @@
-package com.gmail.at.ivanehreshi.jee.lab1;
+package com.gmail.at.ivanehreshi.jee.lab1.persistence;
 
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
