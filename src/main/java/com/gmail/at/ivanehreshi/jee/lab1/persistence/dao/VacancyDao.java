@@ -5,8 +5,8 @@ import com.gmail.at.ivanehreshi.jee.lab1.domain.Vacancy;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import static com.gmail.at.ivanehreshi.jee.lab1.persistence.dao.CompanyDao.SELECT_COMPANY;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VacancyDao implements Dao<Vacancy, Long> {
     public static final String SELECT_VACANCY =
@@ -17,6 +17,10 @@ public class VacancyDao implements Dao<Vacancy, Long> {
             "UPDATE `vacancy` SET position=?, estimated_salary=?, company_id=?, requirements=? WHERE id=?";
     public static final String DELETE_VACANCY =
             "DELETE FROM `vacancy` WHERE id=?";
+
+    public static final String SELECT_VACANCY_BY_SALARY =
+            "SELECT id, position, estimated_salary, company_id, requirements FROM `vacancy` WHERE estimated_salary %b";
+
 
     private PersistenceUtils persistenceUtils;
     private CompanyDao companyDao;
@@ -37,7 +41,7 @@ public class VacancyDao implements Dao<Vacancy, Long> {
 
     @Override
     public Vacancy read(Long id) {
-        ResultSet rs = persistenceUtils.query(SELECT_COMPANY, id);
+        ResultSet rs = persistenceUtils.query(SELECT_VACANCY, id);
         if(rs == null)
             return null;
 
@@ -73,5 +77,32 @@ public class VacancyDao implements Dao<Vacancy, Long> {
     @Override
     public void delete(Long id) {
         persistenceUtils.update(DELETE_VACANCY, id);
+    }
+
+    public List<Vacancy> findVacanciesWithSalary(String criterion) {
+        List<Vacancy> vacancies = new ArrayList<>();
+
+        String sql = String.format(SELECT_VACANCY_BY_SALARY, criterion);
+        ResultSet rs = persistenceUtils.query(sql);
+
+        if(rs == null) {
+            return vacancies;
+        }
+        try {
+            while (rs.next()) {
+                Vacancy nextVacancy = new Vacancy();
+                nextVacancy.setId(rs.getLong("id"));
+                nextVacancy.setPosition(rs.getString("position"));
+                nextVacancy.setEstimatedSalary(rs.getDouble("estimated_salary"));
+                nextVacancy.setCompany(companyDao.read(rs.getLong("company_id")));
+                nextVacancy.setRequirements(rs.getString("requirements"));
+
+                vacancies.add(nextVacancy);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return vacancies;
     }
 }
