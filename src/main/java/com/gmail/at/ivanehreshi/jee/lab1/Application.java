@@ -15,6 +15,7 @@ public class Application {
     public Application() {
         this.persistenceUtils = new PersistenceUtils(JDBC_URL, JDBC_DB_NAME,
                                 JDBC_USER, JDBC_PASSWORD);
+        persistenceUtils.executeResourceFile("vacancy.ddl");
     }
 
     public void run() {
