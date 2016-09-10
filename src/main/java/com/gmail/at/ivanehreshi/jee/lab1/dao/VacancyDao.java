@@ -2,7 +2,6 @@ package com.gmail.at.ivanehreshi.jee.lab1.dao;
 
 import com.gmail.at.ivanehreshi.jee.lab1.Dao;
 import com.gmail.at.ivanehreshi.jee.lab1.PersistenceUtils;
-import com.gmail.at.ivanehreshi.jee.lab1.domain.Company;
 import com.gmail.at.ivanehreshi.jee.lab1.domain.Vacancy;
 
 import java.sql.ResultSet;
@@ -13,11 +12,11 @@ import static com.gmail.at.ivanehreshi.jee.lab1.dao.CompanyDao.SELECT_COMPANY;
 public class VacancyDao implements Dao<Vacancy, Long> {
     public static final String SELECT_VACANCY =
             "SELECT id, position, estimated_salary, company_id, requirements FROM `vacancy` WHERE `id` = ?";
-    public static final String INSERT_COMPANY =
+    public static final String INSERT_VACANCY =
             "INSERT INTO `vacancy`(position, estimated_salary, company_id, requirements) VALUES (?, ?, ?, ?)";
-    public static final String UPDATE_COMPANY =
+    public static final String UPDATE_VACANCY =
             "UPDATE `vacancy` SET position=?, estimated_salary=?, company_id=?, requirements=? WHERE id=?";
-    public static final String DELETE_COMPANY =
+    public static final String DELETE_VACANCY =
             "DELETE FROM `vacancy` WHERE id=?";
 
     private PersistenceUtils persistenceUtils;
@@ -30,7 +29,7 @@ public class VacancyDao implements Dao<Vacancy, Long> {
 
     @Override
     public Long create(Vacancy vacancy) {
-        return this.persistenceUtils.insert(INSERT_COMPANY,
+        return this.persistenceUtils.insert(INSERT_VACANCY,
                 vacancy.getPosition(),
                 vacancy.getEstimatedSalary(),
                 vacancy.getCompany().getId(),
@@ -63,7 +62,7 @@ public class VacancyDao implements Dao<Vacancy, Long> {
 
     @Override
     public void update(Vacancy vacancy) {
-        persistenceUtils.update(UPDATE_COMPANY,
+        persistenceUtils.update(UPDATE_VACANCY,
                 vacancy.getPosition(),
                 vacancy.getEstimatedSalary(),
                 vacancy.getCompany().getId(),
@@ -74,6 +73,6 @@ public class VacancyDao implements Dao<Vacancy, Long> {
 
     @Override
     public void delete(Long id) {
-        persistenceUtils.update(DELETE_COMPANY, id);
+        persistenceUtils.update(DELETE_VACANCY, id);
     }
 }
