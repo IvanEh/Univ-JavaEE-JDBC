@@ -1,7 +1,7 @@
 package com.gmail.at.ivanehreshi.jee.lab1.persistence.dao;
 
-import com.gmail.at.ivanehreshi.jee.lab1.persistence.PersistenceUtils;
 import com.gmail.at.ivanehreshi.jee.lab1.domain.Company;
+import com.gmail.at.ivanehreshi.jee.lab1.persistence.PersistenceUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

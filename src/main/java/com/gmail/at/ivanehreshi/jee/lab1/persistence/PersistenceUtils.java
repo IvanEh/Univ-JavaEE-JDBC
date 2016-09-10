@@ -9,12 +9,17 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Contains convenience methods for avoid writing template jdbc code
+ * fragments
+ *
+ * This class maintains connection with the DBMS.
+ */
 public class PersistenceUtils {
     private DataSource ds;
     private Connection connection;

@@ -1,8 +1,8 @@
 package com.gmail.at.ivanehreshi.jee.lab1;
 
+import com.gmail.at.ivanehreshi.jee.lab1.domain.Company;
 import com.gmail.at.ivanehreshi.jee.lab1.persistence.PersistenceUtils;
 import com.gmail.at.ivanehreshi.jee.lab1.persistence.dao.CompanyDao;
-import com.gmail.at.ivanehreshi.jee.lab1.domain.Company;
 
 public class Application {
     public static final String JDBC_URL = "jdbc:mysql://127.1/";
