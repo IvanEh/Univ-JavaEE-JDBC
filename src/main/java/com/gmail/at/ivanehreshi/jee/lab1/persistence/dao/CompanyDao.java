@@ -24,7 +24,9 @@ public class CompanyDao implements Dao<Company, Long> {
 
     @Override
     public Long create(Company company) {
-        return this.persistenceUtils.insert(INSERT_COMPANY, company.getName());
+        Long id = this.persistenceUtils.insert(INSERT_COMPANY, company.getName());
+        company.setId(id);
+        return id;
     }
 
     @Override

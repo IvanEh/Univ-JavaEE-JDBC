@@ -31,4 +31,25 @@ public class Company {
     public void setName(String name) {
         this.name = name;
     }
+
+    // Generated
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Company company = (Company) o;
+
+        if (id != company.id) return false;
+        return name != null ? name.equals(company.name) : company.name == null;
+
+    }
+
+    // Generated
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
 }

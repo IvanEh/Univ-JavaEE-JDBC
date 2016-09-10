@@ -32,11 +32,13 @@ public class VacancyDao implements Dao<Vacancy, Long> {
 
     @Override
     public Long create(Vacancy vacancy) {
-        return this.persistenceUtils.insert(INSERT_VACANCY,
+        Long id = this.persistenceUtils.insert(INSERT_VACANCY,
                 vacancy.getPosition(),
                 vacancy.getEstimatedSalary(),
                 vacancy.getCompany().getId(),
                 vacancy.getRequirements());
+        vacancy.setId(id);
+        return id;
     }
 
     @Override
