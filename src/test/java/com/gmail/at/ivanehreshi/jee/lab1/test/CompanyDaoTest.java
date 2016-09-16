@@ -22,7 +22,7 @@ public class CompanyDaoTest {
         jdbcDataSource.setUser("sa");
         jdbcDataSource.setPassword("sa");
 
-        persistenceUtils = new PersistenceUtils(jdbcDataSource);
+        persistenceUtils = new PersistenceUtils(jdbcDataSource, false);
         persistenceUtils.executeResourceFile("clear-vacancies.sql");
         persistenceUtils.executeResourceFile("vacancy.sql");
         companyDao = new CompanyDao(persistenceUtils);

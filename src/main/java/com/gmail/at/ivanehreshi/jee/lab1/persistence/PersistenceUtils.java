@@ -23,24 +23,30 @@ import java.util.stream.Collectors;
 public class PersistenceUtils {
     private DataSource ds;
     private Connection connection;
+    private boolean pooled = true;
 
-    public PersistenceUtils(String url, String db, String user, String password) {
+    public PersistenceUtils(String url, String db, String user, String password, boolean pooled) {
         MysqlDataSource mysqlDs = new MysqlDataSource();
         mysqlDs.setUrl(url + db);
         mysqlDs.setUser(user);
         mysqlDs.setPassword(password);
         this.ds = mysqlDs;
+        setPooled(pooled);
     }
 
-    public PersistenceUtils(DataSource ds) {
+    public PersistenceUtils(DataSource ds, boolean pooled) {
         this.ds = ds;
+        setPooled(pooled);
     }
 
     public Connection getConnection() {
-        if(connection != null)
+        if(connection != null && !isPooled())
             return connection;
 
         try {
+            if(connection != null) {
+                connection.close();
+            }
             this.connection = ds.getConnection();
             return connection;
         } catch (SQLException e) {
@@ -180,6 +186,14 @@ public class PersistenceUtils {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isPooled() {
+        return pooled;
+    }
+
+    public void setPooled(boolean pooled) {
+        this.pooled = pooled;
     }
 
     @FunctionalInterface

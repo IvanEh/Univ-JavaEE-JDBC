@@ -27,7 +27,7 @@ public class VacancyDaoTests {
         jdbcDataSource.setUser("sa");
         jdbcDataSource.setPassword("sa");
 
-        persistenceUtils = new PersistenceUtils(jdbcDataSource);
+        persistenceUtils = new PersistenceUtils(jdbcDataSource, false);
         persistenceUtils.executeResourceFile("clear-vacancies.sql");
         persistenceUtils.executeResourceFile("vacancy.sql");
         vacancyDao = new VacancyDao(persistenceUtils);
