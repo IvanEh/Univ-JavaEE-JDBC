@@ -114,6 +114,22 @@ public class PersistenceUtils {
         return null;
     }
 
+    public <R> R withRs(ResultSet rs, ResultSetFunction<R> fn) {
+        try {
+            return fn.apply(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
 
     public boolean executeResourceFile(String path) {
         URL url = PersistenceUtils.class.getClassLoader().getResource(path);
@@ -164,5 +180,10 @@ public class PersistenceUtils {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @FunctionalInterface
+    public interface ResultSetFunction<R>{
+        R apply(ResultSet resultSet) throws SQLException;
     }
 }

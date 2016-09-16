@@ -4,7 +4,6 @@ import com.gmail.at.ivanehreshi.jee.lab1.domain.Vacancy;
 import com.gmail.at.ivanehreshi.jee.lab1.persistence.PersistenceUtils;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,22 +46,20 @@ public class VacancyDao implements Dao<Vacancy, Long> {
         if(rs == null)
             return null;
 
-        Vacancy vacancy = new Vacancy();
-        try {
-            if(rs.next()) {
+        return persistenceUtils.withRs(rs, (rsArg) -> {
+            if(rsArg.next()) {
+                Vacancy vacancy = new Vacancy();
                 vacancy.setId(id);
-                vacancy.setPosition(rs.getString("position"));
-                vacancy.setEstimatedSalary(rs.getDouble("estimated_salary"));
-                vacancy.setCompany(companyDao.read(rs.getLong("company_id")));
-                vacancy.setRequirements(rs.getString("requirements"));
+                vacancy.setPosition(rsArg.getString("position"));
+                vacancy.setEstimatedSalary(rsArg.getDouble("estimated_salary"));
+                vacancy.setCompany(companyDao.read(rsArg.getLong("company_id")));
+                vacancy.setRequirements(rsArg.getString("requirements"));
 
                 return vacancy;
             }
-        } catch (SQLException e) {
-            return null;
-        }
 
-        return null;
+            return null;
+        });
     }
 
     @Override
@@ -89,7 +86,8 @@ public class VacancyDao implements Dao<Vacancy, Long> {
         if(rs == null) {
             return vacancies;
         }
-        try {
+
+        persistenceUtils.withRs(rs, (rsArg) -> {
             while (rs.next()) {
                 Vacancy nextVacancy = new Vacancy();
                 nextVacancy.setId(rs.getLong("id"));
@@ -100,9 +98,10 @@ public class VacancyDao implements Dao<Vacancy, Long> {
 
                 vacancies.add(nextVacancy);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+            return null;
+        });
+
 
         return vacancies;
     }

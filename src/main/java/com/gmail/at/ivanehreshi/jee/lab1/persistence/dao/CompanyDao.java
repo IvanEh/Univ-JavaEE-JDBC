@@ -4,7 +4,6 @@ import com.gmail.at.ivanehreshi.jee.lab1.domain.Company;
 import com.gmail.at.ivanehreshi.jee.lab1.persistence.PersistenceUtils;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class CompanyDao implements Dao<Company, Long> {
     public static final String SELECT_COMPANY =
@@ -35,19 +34,16 @@ public class CompanyDao implements Dao<Company, Long> {
         if(rs == null)
             return null;
 
-        Company company = new Company();
-        try {
-            if(rs.next()) {
+        return persistenceUtils.withRs(rs, (rsArg) -> {
+            if(rsArg.next()) {
+                Company company = new Company();
                 company.setId(id);
-                company.setName(rs.getString(2));
-
+                company.setName(rsArg.getString(2));
                 return company;
             }
-        } catch (SQLException e) {
-            return null;
-        }
 
-        return null;
+            return null;
+        });
     }
 
     @Override
